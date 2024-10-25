@@ -12,8 +12,6 @@ import static org.junit.Assert.*;
 
 public class LoginInteractorTest {
 
-    // TODO Task 2.2: make a copy of this test method and follow the instructions in the readme to test your
-    //                code from Task 2.1..
     @Test
     public void successTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
@@ -41,6 +39,7 @@ public class LoginInteractorTest {
         interactor.execute(inputData);
     }
 
+    @Test
     public void successUserLoggedInTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
         LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -93,4 +92,32 @@ public class LoginInteractorTest {
             }
         };
 
-       
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    public void failureUserDoesNotExistTest() {
+        LoginInputData inputData = new LoginInputData("Paul", "password");
+        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Add Paul to the repo so that when we check later they already exist
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        LoginOutputBoundary failurePresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LoginOutputData user) {
+                // this should never be reached since the test case should fail
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Paul: Account does not exist.", error);
+            }
+        };
+
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
+        interactor.execute(inputData);
+    }
+}

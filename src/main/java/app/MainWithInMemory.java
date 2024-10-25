@@ -70,6 +70,4 @@ public class MainWithInMemory {
         viewManagerModel.firePropertyChanged();
 
         application.pack();
-        application.setVisible(true);
-    }
-}
+ 

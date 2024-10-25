@@ -154,4 +154,11 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
                 // success!
             }
             else {
-                throw new RuntimeException(responseBody.getString(M
+                throw new RuntimeException(responseBody.getString(MESSAGE));
+            }
+        }
+        catch (IOException | JSONException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+}

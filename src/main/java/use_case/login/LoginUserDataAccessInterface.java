@@ -27,15 +27,4 @@ public interface LoginUserDataAccessInterface {
      */
     User get(String username);
 
-    /**
-     * Saves the data of the user with the given username.
-     * @param name the username to look up
-     */
-    void setCurrentUser(String name);
-
-    /**
-     * Returns the data of the user with the given username.
-     * @return the username to look up
-     */
-    String getCurrentUser();
-}
+  

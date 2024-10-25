@@ -96,4 +96,28 @@ public class LoginInteractorTest {
         interactor.execute(inputData);
     }
 
-    @Tes
+    @Test
+    public void failureUserDoesNotExistTest() {
+        LoginInputData inputData = new LoginInputData("Paul", "password");
+        LoginUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Add Paul to the repo so that when we check later they already exist
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        LoginOutputBoundary failurePresenter = new LoginOutputBoundary() {
+            @Override
+            public void prepareSuccessView(LoginOutputData user) {
+                // this should never be reached since the test case should fail
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("Paul: Account does not exist.", error);
+            }
+        };
+
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failurePresenter);
+        interactor.execute(inputData);
+    }
+}

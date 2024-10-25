@@ -71,6 +71,11 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
+    public String getCurrentUser() {
+        return "";
+    }
+
+    @Override
     public boolean existsByName(String username) {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -149,11 +154,4 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
                 // success!
             }
             else {
-                throw new RuntimeException(responseBody.getString(MESSAGE));
-            }
-        }
-        catch (IOException | JSONException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-}
+                throw new RuntimeException(responseBody.getString(M
